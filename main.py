@@ -1,0 +1,20 @@
+# main.py
+
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from backend.app.api.v1.enpoints import diagram, test
+
+app = FastAPI(
+    title="Cloud Architecture Diagram Generator",
+    version="1.0.0",
+)
+
+# Mount the 'code_exe' directory to serve static files
+app.mount("/images", StaticFiles(directory="code_exe"), name="images")
+
+app.include_router(diagram.router, prefix="/api/v1/diagrams", tags=["Diagrams"])
+app.include_router(test.router, prefix="/api/v1/test", tags=["Test"])
+
+@app.get("/", tags=["Root"])
+def read_root():
+    return {"message": "Server is running smoothly."}
