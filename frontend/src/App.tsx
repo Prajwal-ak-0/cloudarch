@@ -6,12 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { Header } from "./components/header";
 import { StepProgress } from "./components/step-progress";
 import { CloudProviderSelect } from "./components/cloud-provider-select";
 import { ProjectDescription } from "./components/project-description";
 import { TextDisplay } from "./components/text-display";
 import { DiagramDisplay } from "./components/diagram-display";
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
 export default function App() {
   const [cloudProvider, setCloudProvider] = useState<string>("");
@@ -22,7 +23,6 @@ export default function App() {
   const [diagramCode, setDiagramCode] = useState<string>("");
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const { toast } = useToast();
 
   const hasGeneratedContent = generatedDiagrams.length > 0;
@@ -105,9 +105,8 @@ export default function App() {
   };
 
   return (
-    <div className={`flex min-h-screen w-screen ${isDarkMode ? "dark" : ""}`}>
+    <div className="flex min-h-screen w-screen ">
       <div className="flex-1 flex flex-col bg-white dark:bg-gray-800">
-        {/* <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} /> */}
 
         <main
           className={cn(
@@ -133,10 +132,18 @@ export default function App() {
                       <CloudProviderSelect onValueChange={setCloudProvider} />
                     )}
                     {currentStep === 1 && (
-                      <ProjectDescription
-                        value={projectDescription}
-                        onChange={setProjectDescription}
-                      />
+                        <div className="space-y-6">
+                        <Label htmlFor="project-description">
+                          Project Description
+                        </Label>
+                        <Textarea
+                          id="project-description"
+                          placeholder="Describe your project architecture here..."
+                          value={projectDescription}
+                          onChange={(e) => setProjectDescription(e.target.value)}
+                          className="h-32 md:h-40"
+                        />
+                        </div>
                     )}
                     {currentStep === 2 && (
                       <Alert variant="default">

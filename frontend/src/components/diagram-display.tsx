@@ -1,15 +1,5 @@
-// frontend/src/components/diagram-display.tsx
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ZoomIn, ZoomOut, Maximize2, Minimize2 } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
 import {
   Select,
   SelectContent,
@@ -29,8 +19,6 @@ interface DiagramDisplayProps {
 }
 
 export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
-  const [scale, setScale] = useState(0.6);
-  const [isOpen, setIsOpen] = useState(false);
 
   if (diagrams.length === 0) return null;
 
@@ -57,13 +45,6 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
     }
   };
 
-  const handleZoom = (direction: "in" | "out") => {
-    setScale((prevScale) => {
-      const newScale = direction === "in" ? prevScale + 0.1 : prevScale - 0.1;
-      return Math.min(Math.max(newScale, 0.4), 1.8); // Limit scale between 0.3 and 3
-    });
-  };
-
   return (
     <Card className="w-full">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -74,118 +55,6 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
           {diagrams.map((imgUrl, index) => (
             <div key={index} className="relative group">
               <div className="absolute flex items-center top-2 right-2 opacity-100 group-hover:opacity-50 transition-opacity z-10 space-x-2">
-                <TooltipProvider>
-                  <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <AlertDialogTrigger asChild>
-                          <Button variant="secondary" size="icon">
-                            <Maximize2 className="h-4 w-4" />
-                          </Button>
-                        </AlertDialogTrigger>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>View in fullscreen</p>
-                      </TooltipContent>
-                    </Tooltip>
-
-                    <AlertDialogContent className="max-w-[90vw] max-h-[90vh] w-fit h-fit p-0">
-                      <div className="relative">
-                        <div className="sticky top-0 right-0 p-2 flex justify-between items-center gap-2 bg-background/80 backdrop-blur-sm">
-                          <div className="flex gap-2">
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onClick={() => handleZoom("in")}
-                                  >
-                                    <ZoomIn className="h-4 w-4" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>Zoom in</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    onClick={() => handleZoom("out")}
-                                  >
-                                    <ZoomOut className="h-4 w-4" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>Zoom out</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Select
-                                    onValueChange={(value) =>
-                                      handleDownload(
-                                        imgUrl,
-                                        value as "PNG" | "JPG" | "SVG"
-                                      )
-                                    }
-                                  >
-                                    <SelectTrigger className="w-[120px]">
-                                      <SelectValue placeholder="Export" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectItem value="PNG">PNG</SelectItem>
-                                      <SelectItem value="JPG">JPG</SelectItem>
-                                      <SelectItem value="SVG">SVG</SelectItem>
-                                    </SelectContent>
-                                  </Select>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>Export diagram</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          </div>
-
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <AlertDialogCancel asChild>
-                                  <Button variant="outline" size="icon">
-                                    <Minimize2 className="h-4 w-4" />
-                                  </Button>
-                                </AlertDialogCancel>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Exit fullscreen</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </div>
-
-                        <div className="-mt-[270px]">
-                          <img
-                            src={imgUrl}
-                            alt={`Generated Diagram ${index + 1}`}
-                            style={{
-                              transform: `scale(${scale})`,
-                              transition: "transform 0.2s ease-in-out",
-                            }}
-                            className="max-w-none"
-                          />
-                        </div>
-                      </div>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </TooltipProvider>
 
                 <TooltipProvider>
                   <Tooltip>
