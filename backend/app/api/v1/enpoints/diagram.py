@@ -15,8 +15,8 @@ async def generate_diagram(
 ):
     try:
         # Process the project description
-        architecture = ArchitectureService.process_project_description(project_description)
-        diagram_code = DiagramService.generate_diagram(architecture)
+        architecture = ArchitectureService.process_project_description(project_description, cloud_provider)
+        diagram_code = DiagramService.generate_diagram(architecture, cloud_provider)
         images = DiagramService.execute_code_and_get_images(diagram_code)
 
         # Prepend the server URL to image paths

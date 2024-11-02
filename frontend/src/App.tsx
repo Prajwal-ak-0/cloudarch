@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 import { Header } from "./components/header";
 import { StepProgress } from "./components/step-progress";
 import { CloudProviderSelect } from "./components/cloud-provider-select";
@@ -23,6 +24,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { toast } = useToast();
+
+  const hasGeneratedContent = generatedDiagrams.length > 0;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -102,74 +105,136 @@ export default function App() {
   };
 
   return (
-    <div className={`flex h-screen ${isDarkMode ? "dark" : ""}`}>
+    <div className={`flex min-h-screen w-screen ${isDarkMode ? "dark" : ""}`}>
       <div className="flex-1 flex flex-col bg-white dark:bg-gray-800">
         {/* <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} /> */}
 
-        <main className="flex-1 flex p-6 w-full overflow-auto">
-          <div className="w-1/2 mx-auto">
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle>Generate Your Cloud Architecture Diagram</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <StepProgress currentStep={currentStep} />
-
-                <form onSubmit={handleSubmit}>
-                  {currentStep === 0 && (
-                    <CloudProviderSelect onValueChange={setCloudProvider} />
-                  )}
-
-                  {currentStep === 1 && (
-                    <ProjectDescription
-                      value={projectDescription}
-                      onChange={setProjectDescription}
-                    />
-                  )}
-
-                  {currentStep === 2 && (
-                    <Alert variant="default">
-                      <AlertTitle>Ready to generate</AlertTitle>
-                      <AlertDescription>
-                        Review your inputs and click the button below to
-                        generate your cloud architecture diagram.
-                      </AlertDescription>
-                    </Alert>
-                  )}
-
-                  <div className="mt-6 flex justify-between">
-                    {currentStep > 0 && (
-                      <Button
-                        type="button"
-                        onClick={prevStep}
-                        variant="outline"
-                      >
-                        Previous
-                      </Button>
+        <main
+          className={cn(
+            "flex-1 p-4 transition-all duration-300",
+            hasGeneratedContent
+              ? "flex gap-4 flex-col md:flex-row"
+              : "flex items-center justify-center"
+          )}
+        >
+          {!hasGeneratedContent ? (
+            // Centered form when no content is generated
+            <div className="w-full max-w-md">
+              <Card className="p-4 md:p-6 mb-4">
+                <CardHeader>
+                  <CardTitle className="text-xl md:text-2xl">
+                    Generate Your Cloud Architecture Diagram
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <StepProgress currentStep={currentStep} />
+                  <form onSubmit={handleSubmit} className="mt-6">
+                    {currentStep === 0 && (
+                      <CloudProviderSelect onValueChange={setCloudProvider} />
                     )}
-                    {currentStep < 2 ? (
-                      <Button type="button" onClick={nextStep}>
-                        Next
-                      </Button>
-                    ) : (
-                      <Button type="submit" disabled={isLoading}>
-                        {isLoading ? "Generating..." : "Generate Diagram"}
-                      </Button>
+                    {currentStep === 1 && (
+                      <ProjectDescription
+                        value={projectDescription}
+                        onChange={setProjectDescription}
+                      />
                     )}
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
-
-            <DiagramDisplay diagrams={generatedDiagrams} />
-          </div>
-
-          <div className="w-1/2 pl-4">
-            <TextDisplay
-              architecturalDescription={architecturalDescription}
-              diagramCode={diagramCode}
-            />
-          </div>
+                    {currentStep === 2 && (
+                      <Alert variant="default">
+                        <AlertTitle>Ready to generate</AlertTitle>
+                        <AlertDescription>
+                          Review your inputs and click the button below to
+                          generate your cloud architecture diagram.
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                    <div className="mt-6 flex justify-between">
+                      {currentStep > 0 && (
+                        <Button
+                          type="button"
+                          onClick={prevStep}
+                          variant="outline"
+                        >
+                          Previous
+                        </Button>
+                      )}
+                      {currentStep < 2 ? (
+                        <Button type="button" onClick={nextStep}>
+                          Next
+                        </Button>
+                      ) : (
+                        <Button type="submit" disabled={isLoading}>
+                          {isLoading ? "Generating..." : "Generate Diagram"}
+                        </Button>
+                      )}
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            // Split layout when content is generated
+            <>
+              <div className="w-full md:w-1/2 flex flex-col gap-4">
+                <Card className="p-4 md:p-6 mb-4">
+                  <CardHeader>
+                    <CardTitle className="text-xl md:text-2xl">
+                      Generate Your Cloud Architecture Diagram
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <StepProgress currentStep={currentStep} />
+                    <form onSubmit={handleSubmit} className="mt-6">
+                      {currentStep === 0 && (
+                        <CloudProviderSelect onValueChange={setCloudProvider} />
+                      )}
+                      {currentStep === 1 && (
+                        <ProjectDescription
+                          value={projectDescription}
+                          onChange={setProjectDescription}
+                        />
+                      )}
+                      {currentStep === 2 && (
+                        <Alert variant="default">
+                          <AlertTitle>Ready to generate</AlertTitle>
+                          <AlertDescription>
+                            Review your inputs and click the button below to
+                            generate your cloud architecture diagram.
+                          </AlertDescription>
+                        </Alert>
+                      )}
+                      <div className="mt-6 flex justify-between">
+                        {currentStep > 0 && (
+                          <Button
+                            type="button"
+                            onClick={prevStep}
+                            variant="outline"
+                          >
+                            Previous
+                          </Button>
+                        )}
+                        {currentStep < 2 ? (
+                          <Button type="button" onClick={nextStep}>
+                            Next
+                          </Button>
+                        ) : (
+                          <Button type="submit" disabled={isLoading}>
+                            {isLoading ? "Generating..." : "Generate Diagram"}
+                          </Button>
+                        )}
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+                <DiagramDisplay diagrams={generatedDiagrams} />
+              </div>
+              <div className="w-full md:w-1/2 flex flex-col gap-4">
+                <TextDisplay
+                  architecturalDescription={architecturalDescription}
+                  diagramCode={diagramCode}
+                />
+              </div>
+            </>
+          )}
         </main>
       </div>
     </div>

@@ -8,14 +8,14 @@ interface ProjectDescriptionProps {
 
 export function ProjectDescription({ value, onChange }: ProjectDescriptionProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <Label htmlFor="project-description">Project Description</Label>
       <Textarea
         id="project-description"
         placeholder="Describe your project architecture here..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-40"
+        className="h-32 md:h-40"
       />
     </div>
   )

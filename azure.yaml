@@ -1,0 +1,218 @@
+- category: analytics
+  icons:
+    - AnalysisServices
+    - DataExplorerClusters
+    - DataFactories
+    - DataLakeAnalytics
+    - DataLakeStoreGen1
+    - Databricks
+    - EventHubClusters
+    - EventHubs
+    - Hdinsightclusters
+    - LogAnalyticsWorkspaces
+    - StreamAnalyticsJobs
+    - SynapseAnalytics
+
+- category: compute
+  icons:
+    - AppServices
+    - AutomanagedVM
+    - AvailabilitySets
+    - BatchAccounts
+    - CitrixVirtualDesktopsEssentials
+    - CloudServicesClassic
+    - CloudServices
+    - CloudsimpleVirtualMachines
+    - ContainerInstances
+    - ContainerRegistries
+    - DiskEncryptionSets
+    - DiskSnapshots
+    - Disks
+    - FunctionApps
+    - ImageDefinitions
+    - ImageVersions
+    - KubernetesServices
+    - MeshApplications
+    - OsImages
+    - SAPHANAOnAzure
+    - ServiceFabricClusters
+    - SharedImageGalleries
+    - SpringCloud
+    - VMClassic
+    - VMImages
+    - VMLinux
+    - VMScaleSet
+    - VMWindows
+    - VM
+    - Workspaces
+
+- category: database
+  icons:
+    - BlobStorage
+    - CacheForRedis
+    - CosmosDb
+    - DataExplorerClusters
+    - DataFactory
+    - DataLake
+    - DatabaseForMariadbServers
+    - DatabaseForMysqlServers
+    - DatabaseForPostgresqlServers
+    - ElasticDatabasePools
+    - ElasticJobAgents
+    - InstancePools
+    - ManagedDatabases
+    - SQLDatabases
+    - SQLDatawarehouse
+    - SQLManagedInstances
+    - SQLServerStretchDatabases
+    - SQLServers
+    - SQLVM
+    - SQL
+    - SsisLiftAndShiftIr
+    - SynapseAnalytics
+    - VirtualClusters
+    - VirtualDatacenter
+
+- category: devops
+  icons:
+    - ApplicationInsights
+    - Artifacts
+    - Boards
+    - Devops
+    - DevtestLabs
+    - LabServices
+    - Pipelines
+    - Repos
+    - TestPlans
+
+- category: integration
+  icons:
+    - APIForFhir
+    - APIManagement
+    - AppConfiguration
+    - DataCatalog
+    - EventGridDomains
+    - EventGridSubscriptions
+    - EventGridTopics
+    - IntegrationAccounts
+    - IntegrationServiceEnvironments
+    - LogicAppsCustomConnector
+    - LogicApps
+    - PartnerTopic
+    - SendgridAccounts
+    - ServiceBusRelays
+    - ServiceBus
+    - ServiceCatalogManagedApplicationDefinitions
+    - SoftwareAsAService
+    - StorsimpleDeviceManagers
+    - SystemTopic
+
+- category: iot
+  icons:
+    - DeviceProvisioningServices
+    - DigitalTwins
+    - IotCentralApplications
+    - IotHubSecurity
+    - IotHub
+    - Maps
+    - Sphere
+    - TimeSeriesInsightsEnvironments
+    - TimeSeriesInsightsEventsSources
+    - Windows10IotCoreServices
+
+- category: migration
+  icons:
+    - DataBoxEdge
+    - DataBox
+    - DatabaseMigrationServices
+    - MigrationProjects
+    - RecoveryServicesVaults
+
+- category: ml
+  icons:
+    - BatchAI
+    - BotServices
+    - CognitiveServices
+    - GenomicsAccounts
+    - MachineLearningServiceWorkspaces
+    - MachineLearningStudioWebServicePlans
+    - MachineLearningStudioWebServices
+    - MachineLearningStudioWorkspaces
+
+- category: mobile
+  icons:
+    - AppServiceMobile
+    - MobileEngagement
+    - NotificationHubs
+
+- category: network
+  icons:
+    - ApplicationGateway
+    - ApplicationSecurityGroups
+    - CDNProfiles
+    - Connections
+    - DDOSProtectionPlans
+    - DNSPrivateZones
+    - DNSZones
+    - ExpressrouteCircuits
+    - Firewall
+    - FrontDoors
+    - LoadBalancers
+    - LocalNetworkGateways
+    - NetworkInterfaces
+    - NetworkSecurityGroupsClassic
+    - NetworkWatcher
+    - OnPremisesDataGateways
+    - PublicIpAddresses
+    - ReservedIpAddressesClassic
+    - RouteFilters
+    - RouteTables
+    - ServiceEndpointPolicies
+    - Subnets
+    - TrafficManagerProfiles
+    - VirtualNetworkClassic
+    - VirtualNetworkGateways
+    - VirtualNetworks
+    - VirtualWans
+
+- category: security
+  icons:
+    - ApplicationSecurityGroups
+    - ConditionalAccess
+    - Defender
+    - ExtendedSecurityUpdates
+    - KeyVaults
+    - SecurityCenter
+    - Sentinel
+
+- category: storage
+  icons:
+    - ArchiveStorage
+    - Azurefxtedgefiler
+    - BlobStorage
+    - DataBoxEdgeDataBoxGateway
+    - DataBox
+    - DataLakeStorage
+    - GeneralStorage
+    - NetappFiles
+    - QueuesStorage
+    - StorageAccountsClassic
+    - StorageAccounts
+    - StorageExplorer
+    - StorageSyncServices
+    - StorsimpleDataManagers
+    - StorsimpleDeviceManagers
+    - TableStorage
+
+- category: web
+  icons:
+    - APIConnections
+    - AppServiceCertificates
+    - AppServiceDomains
+    - AppServiceEnvironments
+    - AppServicePlans
+    - AppServices
+    - MediaServices
+    - NotificationHubNamespaces
+    - Search
+    - Signalr

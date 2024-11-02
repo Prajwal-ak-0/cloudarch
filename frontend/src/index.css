@@ -178,3 +178,40 @@ button:focus-visible {
 .canvas-container pre::-webkit-scrollbar-thumb:hover {
   background-color: hsl(var(--foreground));
 }
+
+/* Add to your existing index.css */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.card {
+  transition: width 300ms ease-in-out, margin 300ms ease-in-out;
+}
+
+.transition-layout {
+  transition: all 0.3s ease-in-out;
+}
+
+main > div {
+  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+}

@@ -9,10 +9,14 @@ from autogen.coding import LocalCommandLineCodeExecutor
 
 class DiagramService:
     @staticmethod
-    def generate_diagram(architecture: dict) -> str:
-        services = load_aws_services('aws_modified.yaml')
+    def generate_diagram(architecture: dict, cloud_provider: str) -> str:
+        services = load_aws_services(f'{cloud_provider}.yaml')
         icons = get_icons_by_categories(services, architecture['icon_category_list'])
-        prompt = llm2.format(icon_list=icons, project_description=architecture['architectural_description'])
+        prompt = llm2.format(
+            icon_list=icons, 
+            project_description=architecture['architectural_description'],
+            cloud_provider=cloud_provider
+        )
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[

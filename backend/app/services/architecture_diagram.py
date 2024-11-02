@@ -1,14 +1,26 @@
 # architecture_service.py
 
 import openai
-from backend.config import OPENAI_API_KEY, llm1, llm1_schema
+from backend.config import OPENAI_API_KEY, llm1, llm1_schema, aws_categories, azure_categories, gcp_categories
 
 class ArchitectureService:
     openai.api_key = OPENAI_API_KEY
 
     @staticmethod
-    def process_project_description(project_description: str):
-        prompt = llm1.format(project_description=project_description)
+    def process_project_description(project_description: str, cloud_provider:str):
+
+        if cloud_provider == "aws":
+            icon_list = aws_categories
+        elif cloud_provider == "azure":
+            icon_list = azure_categories
+        elif cloud_provider == "gcp":
+            icon_list = gcp_categories
+
+        prompt = llm1.format(
+            project_description=project_description,
+            categories=icon_list,
+            cloud_provider=cloud_provider
+        )
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[

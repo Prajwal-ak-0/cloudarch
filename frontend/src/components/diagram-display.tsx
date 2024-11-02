@@ -1,68 +1,68 @@
 // frontend/src/components/diagram-display.tsx
 
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import {  ZoomIn, ZoomOut, Maximize2, Minimize2 } from "lucide-react"
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ZoomIn, ZoomOut, Maximize2, Minimize2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogTrigger,
   AlertDialogCancel,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 interface DiagramDisplayProps {
-  diagrams: string[]
+  diagrams: string[];
 }
 
 export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
-  const [scale, setScale] = useState(1)
-  const [isOpen, setIsOpen] = useState(false)
+  const [scale, setScale] = useState(0.6);
+  const [isOpen, setIsOpen] = useState(false);
 
-  if (diagrams.length === 0) return null
+  if (diagrams.length === 0) return null;
 
-  const handleDownload = async (url: string, format: 'PNG' | 'JPG' | 'SVG') => {
+  const handleDownload = async (url: string, format: "PNG" | "JPG" | "SVG") => {
     try {
-      const response = await fetch(url)
-      const blob = await response.blob()
-      const extension = format.toLowerCase()
-      
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const extension = format.toLowerCase();
+
       // Convert to desired format if needed
-      const imageBlob = extension === 'jpg' ? 
-        new Blob([blob], { type: 'image/jpeg' }) : blob
+      const imageBlob =
+        extension === "jpg" ? new Blob([blob], { type: "image/jpeg" }) : blob;
 
-      const downloadUrl = window.URL.createObjectURL(imageBlob)
-      const link = document.createElement('a')
-      link.href = downloadUrl
-      link.download = `architecture-diagram.${extension}`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      window.URL.revokeObjectURL(downloadUrl)
+      const downloadUrl = window.URL.createObjectURL(imageBlob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = `architecture-diagram.${extension}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
     } catch (error) {
-      console.error('Error downloading image:', error)
+      console.error("Error downloading image:", error);
     }
-  }
+  };
 
-  const handleZoom = (direction: 'in' | 'out') => {
-    setScale(prevScale => {
-      const newScale = direction === 'in' ? prevScale + 0.1 : prevScale - 0.1
-      return Math.min(Math.max(newScale, 0.3), 3) // Limit scale between 0.3 and 3
-    })
-  }
+  const handleZoom = (direction: "in" | "out") => {
+    setScale((prevScale) => {
+      const newScale = direction === "in" ? prevScale + 0.1 : prevScale - 0.1;
+      return Math.min(Math.max(newScale, 0.4), 1.8); // Limit scale between 0.3 and 3
+    });
+  };
 
   return (
     <Card className="w-full">
@@ -96,10 +96,10 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <Button 
-                                    variant="outline" 
+                                  <Button
+                                    variant="outline"
                                     size="icon"
-                                    onClick={() => handleZoom('in')}
+                                    onClick={() => handleZoom("in")}
                                   >
                                     <ZoomIn className="h-4 w-4" />
                                   </Button>
@@ -113,10 +113,10 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <Button 
-                                    variant="outline" 
+                                  <Button
+                                    variant="outline"
                                     size="icon"
-                                    onClick={() => handleZoom('out')}
+                                    onClick={() => handleZoom("out")}
                                   >
                                     <ZoomOut className="h-4 w-4" />
                                   </Button>
@@ -130,7 +130,14 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                             <TooltipProvider>
                               <Tooltip>
                                 <TooltipTrigger asChild>
-                                  <Select onValueChange={(value) => handleDownload(imgUrl, value as 'PNG' | 'JPG' | 'SVG')}>
+                                  <Select
+                                    onValueChange={(value) =>
+                                      handleDownload(
+                                        imgUrl,
+                                        value as "PNG" | "JPG" | "SVG"
+                                      )
+                                    }
+                                  >
                                     <SelectTrigger className="w-[120px]">
                                       <SelectValue placeholder="Export" />
                                     </SelectTrigger>
@@ -164,13 +171,13 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                           </TooltipProvider>
                         </div>
 
-                        <div className="overflow-auto flex items-center justify-center">
-                          <img 
-                            src={imgUrl} 
-                            alt={`Generated Diagram ${index + 1}`} 
+                        <div className="-mt-[270px]">
+                          <img
+                            src={imgUrl}
+                            alt={`Generated Diagram ${index + 1}`}
                             style={{
                               transform: `scale(${scale})`,
-                              transition: 'transform 0.2s ease-in-out'
+                              transition: "transform 0.2s ease-in-out",
                             }}
                             className="max-w-none"
                           />
@@ -183,7 +190,11 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Select onValueChange={(value) => handleDownload(imgUrl, value as 'PNG' | 'JPG' | 'SVG')}>
+                      <Select
+                        onValueChange={(value) =>
+                          handleDownload(imgUrl, value as "PNG" | "JPG" | "SVG")
+                        }
+                      >
                         <SelectTrigger className="w-[120px]">
                           <SelectValue placeholder="Export" />
                         </SelectTrigger>
@@ -200,12 +211,12 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              
+
               <div className="overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800">
                 <div className="relative canvas-container">
-                  <img 
-                    src={imgUrl} 
-                    alt={`Generated Diagram ${index + 1}`} 
+                  <img
+                    src={imgUrl}
+                    alt={`Generated Diagram ${index + 1}`}
                     className="w-full h-auto"
                   />
                 </div>
@@ -215,5 +226,5 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

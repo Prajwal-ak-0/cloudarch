@@ -1,0 +1,115 @@
+- category: analytics
+  icons:
+    - Bigquery
+    - Composer
+    - DataCatalog
+    - DataFusion
+    - Dataflow
+    - Datalab
+    - Dataprep
+    - Dataproc
+    - Genomics
+    - Pubsub
+- category: api
+  icons:
+    - APIGateway
+    - Endpoints
+- category: compute
+  icons:
+    - AppEngine
+    - ComputeEngine
+    - ContainerOptimizedOS
+    - Functions
+    - GKEOnPrem
+    - GPU
+    - KubernetesEngine
+    - Run
+- category: database
+  icons:
+    - Bigtable
+    - Datastore
+    - Firestore
+    - Memorystore
+    - Spanner
+    - SQL
+- category: devtools
+  icons:
+    - Build
+    - CodeForIntellij
+    - Code
+    - ContainerRegistry
+    - GradleAppEnginePlugin
+    - IdePlugins
+    - MavenAppEnginePlugin
+    - Scheduler
+    - SDK
+    - SourceRepositories
+    - Tasks
+    - TestLab
+    - ToolsForEclipse
+    - ToolsForPowershell
+    - ToolsForVisualStudio
+- category: iot
+  icons:
+    - IotCore
+- category: migration
+  icons:
+    - TransferAppliance
+- category: ml
+  icons:
+    - AdvancedSolutionsLab
+    - AIHub
+    - AIPlatformDataLabelingService
+    - AIPlatform
+    - AutomlNaturalLanguage
+    - AutomlTables
+    - AutomlTranslation
+    - AutomlVideoIntelligence
+    - AutomlVision
+    - Automl
+    - DialogFlowEnterpriseEdition
+    - InferenceAPI
+    - JobsAPI
+    - NaturalLanguageAPI
+    - RecommendationsAI
+    - SpeechToText
+    - TextToSpeech
+    - TPU
+    - TranslationAPI
+    - VideoIntelligenceAPI
+    - VisionAPI
+- category: network
+  icons:
+    - Armor
+    - CDN
+    - DedicatedInterconnect
+    - DNS
+    - ExternalIpAddresses
+    - FirewallRules
+    - LoadBalancing
+    - NAT
+    - Network
+    - PartnerInterconnect
+    - PremiumNetworkTier
+    - Router
+    - Routes
+    - StandardNetworkTier
+    - TrafficDirector
+    - VirtualPrivateCloud
+    - VPN
+- category: operations
+  icons:
+    - Monitoring
+- category: security
+  icons:
+    - Iam
+    - IAP
+    - KeyManagementService
+    - ResourceManager
+    - SecurityCommandCenter
+    - SecurityScanner
+- category: storage
+  icons:
+    - Filestore
+    - PersistentDisk
+    - Storage
