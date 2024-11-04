@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { X, Maximize2, Minimize2 } from "lucide-react";
+import {  Maximize2, Minimize2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface DiagramDisplayProps {
   diagrams: string[];
+  isLoading: boolean;
 }
 
-export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
+export function DiagramDisplay({ diagrams, isLoading }: DiagramDisplayProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedFormat, setSelectedFormat] = useState<"PNG" | "JPG" | "SVG">("PNG");
   const [isMaximized, setIsMaximized] = useState(false);
@@ -70,6 +66,14 @@ export function DiagramDisplay({ diagrams }: DiagramDisplayProps) {
   };
 
   if (diagrams.length === 0) return null;
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full opacity-50">
+        <Loader2 className="w-12 h-12 animate-spin text-blue-500" />
+      </div>
+    );
+  }
 
   return (
     <>

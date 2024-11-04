@@ -13,13 +13,13 @@ import { TextDisplay } from "./components/text-display";
 import { DiagramDisplay } from "./components/diagram-display";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Loader } from "./components/loader";
 
 export default function App() {
   const [cloudProvider, setCloudProvider] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [generatedDiagrams, setGeneratedDiagrams] = useState<string[]>([]);
-  const [architecturalDescription, setArchitecturalDescription] =
-    useState("");
+  const [architecturalDescription, setArchitecturalDescription] = useState("");
   const [diagramCode, setDiagramCode] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -233,7 +233,7 @@ export default function App() {
                     </form>
                   </CardContent>
                 </Card>
-                <DiagramDisplay diagrams={generatedDiagrams} />
+                <DiagramDisplay diagrams={generatedDiagrams} isLoading={isLoading} />
               </div>
               <div className="w-full md:w-1/2 flex flex-col gap-4">
                 <TextDisplay
@@ -248,6 +248,11 @@ export default function App() {
           )}
         </main>
       </div>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }

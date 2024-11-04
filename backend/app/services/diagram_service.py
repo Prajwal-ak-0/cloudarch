@@ -6,6 +6,7 @@ from backend.config import llm2
 from backend.app.utils.helpers import load_aws_services, get_icons_by_categories
 from autogen import ConversableAgent
 from autogen.coding import LocalCommandLineCodeExecutor
+import uuid
 
 class DiagramService:
     @staticmethod
@@ -34,8 +35,10 @@ class DiagramService:
         execution_dir = os.path.join(os.getcwd(), 'code_exe')
         os.makedirs(execution_dir, exist_ok=True)
 
+        unique_id = uuid.uuid4().hex
+
         # Write the generated code to a file in 'code_exe' directory
-        code_file_path = os.path.join(execution_dir, 'generated_diagram.py')
+        code_file_path = os.path.join(execution_dir, f'generated_diagram_{unique_id}.py')
         with open(code_file_path, 'w') as file:
             file.write(diagram_code)
 
@@ -73,8 +76,10 @@ class DiagramService:
         execution_dir = os.path.join(os.getcwd(), 'updated_code_files')
         os.makedirs(execution_dir, exist_ok=True)
 
+        unique_id = uuid.uuid4().hex
+
         # Write the code to a file in 'updated_code_files' directory
-        code_file_path = os.path.join(execution_dir, 'generated_diagram.py')
+        code_file_path = os.path.join(execution_dir, f'generated_diagram_{unique_id}.py')
         with open(code_file_path, 'w') as file:
             file.write(diagram_code)
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Tabs,
   TabsList,
@@ -21,7 +21,7 @@ interface TextDisplayProps {
   architecturalDescription: string;
   diagramCode: string;
   setGeneratedDiagrams: (diagrams: string[]) => void;
-  setDiagramCode: (code: string) => void; // Include the setter in props
+  setDiagramCode: (code: string) => void;
   setArchitecturalDescription: (description: string) => void;
 }
 
@@ -82,15 +82,15 @@ export function TextDisplay({
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <div className="flex items-center justify-between">
           <TabsList>
-            <TabsTrigger value="description">Description</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
+            <TabsTrigger className="mx-2" value="description">Description</TabsTrigger>
+            <TabsTrigger className="mx-2" value="code">Code</TabsTrigger>
           </TabsList>
           {activeTab === "code" && (
             <Button
               variant="outline"
               size="sm"
               onClick={() => setIsDialogOpen(true)}
-              className="ml-2"
+              className="ml-2 mr-2"
             >
               Edit
             </Button>

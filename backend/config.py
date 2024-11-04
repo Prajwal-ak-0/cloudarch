@@ -159,6 +159,7 @@ Your task is to analyze the provided Project Description and generate **three di
 - Never Ever Use the icon names that are not in the icon list.
 - Make sure to use the exact icon names as mentioned in the icon list. Also, make sure to use the correct import statements for the icons.
 - Even the case of the icon name should be the same as mentioned in the icon list.
+- Always set show to False. Always. Here is a sample example. ```with Diagram("NAME", show=False):``` 
 
 **INPUT VALID ICONS:**
 ---------------------
