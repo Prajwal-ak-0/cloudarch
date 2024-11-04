@@ -34,6 +34,7 @@ class ArchitectureService:
         )
         result = response.choices[0].message.content
         architecture = ArchitectureService.parse_response(result)
+        print(f"Architecture: {architecture}")
         return architecture
 
     @staticmethod

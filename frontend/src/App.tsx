@@ -118,8 +118,8 @@ export default function App() {
         >
           {!hasGeneratedContent ? (
             // Centered form when no content is generated
-            <div className="w-full max-w-md">
-              <Card className="p-4 md:p-6 mb-4">
+            <div className="w-full md:w-3/4 lg:w-1/2 mx-auto">
+              <Card className="p-4 md:p-6">
                 <CardHeader>
                   <CardTitle className="text-xl md:text-2xl">
                     Generate Your Cloud Architecture Diagram
@@ -182,7 +182,7 @@ export default function App() {
             // Split layout when content is generated
             <>
               <div className="w-full md:w-1/2 flex flex-col gap-4">
-                <Card className="p-4 md:p-6 mb-4">
+                <Card className="p-4 md:p-6">
                   <CardHeader>
                     <CardTitle className="text-xl md:text-2xl">
                       Generate Your Cloud Architecture Diagram

@@ -15,8 +15,9 @@ def main():
     """
 
     try:
-        architecture = ArchitectureService.process_project_description(project_description)
-        diagram_code = DiagramService.generate_diagram(architecture)
+        cloud_provider = "aws"
+        architecture = ArchitectureService.process_project_description(project_description, cloud_provider)
+        diagram_code = DiagramService.generate_diagram(architecture, cloud_provider)
         images = DiagramService.execute_code_and_get_images(diagram_code)
         print("Architectural Description:\n", architecture['architectural_description'])
         print("\nRelevant AWS Service Categories:\n", architecture['icon_category_list'])

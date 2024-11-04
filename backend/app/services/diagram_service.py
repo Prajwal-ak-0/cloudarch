@@ -17,6 +17,7 @@ class DiagramService:
             project_description=architecture['architectural_description'],
             cloud_provider=cloud_provider
         )
+        print(f"\n\n\nPrompt: {prompt}")
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[
