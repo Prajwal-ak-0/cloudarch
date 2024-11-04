@@ -6,3 +6,4 @@ openai
 PyYAML
 autogen-agentchat
 autogen
+python-multipart
