@@ -66,3 +66,47 @@ class DiagramService:
         ]
 
         return images
+    
+    @staticmethod
+    def execute_updated_code_and_get_images(diagram_code: str) -> list:
+        # Create 'updated_code_files' directory if it doesn't exist
+        execution_dir = os.path.join(os.getcwd(), 'updated_code_files')
+        os.makedirs(execution_dir, exist_ok=True)
+
+        # Write the code to a file in 'updated_code_files' directory
+        code_file_path = os.path.join(execution_dir, 'generated_diagram.py')
+        with open(code_file_path, 'w') as file:
+            file.write(diagram_code)
+
+        # Set up the code executor
+        executor = LocalCommandLineCodeExecutor(
+            timeout=30,
+            work_dir=execution_dir,
+        )
+
+        # Create a ConversableAgent for code execution
+        code_executor_agent = ConversableAgent(
+            "code_executor_agent",
+            llm_config=False,
+            code_execution_config={"executor": executor},
+            human_input_mode=None,
+        )
+
+        # Execute the generated code
+        try:
+            reply = code_executor_agent.generate_reply(
+                messages=[{"role": "user", "content": diagram_code}]
+            )
+            print(reply)
+        except Exception as e:
+            print("Error executing diagram code:", str(e))
+            raise
+
+        # Collect all image files in 'updated_code_files' directory
+        image_extensions = ['.png', '.jpg', '.jpeg', '.svg']
+        images = [
+            file
+            for file in os.listdir(execution_dir)
+            if os.path.splitext(file)[1].lower() in image_extensions
+        ]
+        return images

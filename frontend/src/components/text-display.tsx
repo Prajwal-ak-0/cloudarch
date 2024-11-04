@@ -1,65 +1,136 @@
-// src/components/text-display.tsx
-
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Code2, FileText } from "lucide-react"
+import React, { useState, useEffect } from "react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { cn } from "@/lib/utils"
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/hooks/use-toast";
+import axios from "axios";
 
 interface TextDisplayProps {
-  architecturalDescription: string
-  diagramCode: string
+  architecturalDescription: string;
+  diagramCode: string;
+  setGeneratedDiagrams: (diagrams: string[]) => void;
+  setDiagramCode: (code: string) => void; // Include the setter in props
+  setArchitecturalDescription: (description: string) => void;
 }
 
-export function TextDisplay({ architecturalDescription, diagramCode }: TextDisplayProps) {
-  const [showCode, setShowCode] = useState(false)
+export function TextDisplay({
+  architecturalDescription,
+  diagramCode,
+  setGeneratedDiagrams,
+  setDiagramCode,
+  setArchitecturalDescription,
+}: TextDisplayProps) {
+  const [activeTab, setActiveTab] = useState("description");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editedCode, setEditedCode] = useState(diagramCode);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // Keep editedCode in sync with diagramCode
+  useEffect(() => {
+    setEditedCode(diagramCode);
+  }, [diagramCode]);
+
+  const handleGenerateDiagram = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/diagrams/execute-code",
+        {
+          diagram_code: editedCode,
+          architectural_description: architecturalDescription,
+        }
+      );
+      const { diagram_code, architectural_description, image_urls } = response.data;
+
+      setGeneratedDiagrams(image_urls);
+      setDiagramCode(diagram_code);
+      setArchitecturalDescription(architectural_description);
+
+      toast({
+        title: "Success",
+        description: "Diagram generated successfully",
+        duration: 3000,
+      });
+      setIsDialogOpen(false);
+    } catch (error: any) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate diagram. Please try again.",
+        duration: 3000,
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
-    <Card className="w-full h-full">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>
-          {showCode ? 'Generated Diagram Code' : 'Architectural Description'}
-        </CardTitle>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setShowCode(!showCode)}
-              >
-                {showCode ? <FileText className="h-4 w-4" /> : <Code2 className="h-4 w-4" />}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{showCode ? 'Show Description' : 'Show Code'}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </CardHeader>
-      <CardContent>
-        <div className="relative canvas-container overflow-auto h-[calc(100vh-20rem)] rounded-lg p-4 bg-muted/30">
-          <pre 
-            className={cn(
-              "text-sm font-mono break-words",
-              showCode ? "whitespace-pre" : "whitespace-pre-wrap"
-            )}
-            style={{
-              maxWidth: '100%',
-              overflowX: showCode ? 'auto' : 'visible',
-              paddingRight: showCode ? '7rem' : '0'
-            }}
-          >
-            {showCode ? diagramCode.trim() : architecturalDescription}
-          </pre>
+    <div className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <div className="flex items-center justify-between">
+          <TabsList>
+            <TabsTrigger value="description">Description</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+          </TabsList>
+          {activeTab === "code" && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsDialogOpen(true)}
+              className="ml-2"
+            >
+              Edit
+            </Button>
+          )}
         </div>
-      </CardContent>
-    </Card>
-  )
+        <TabsContent value="description">
+          <pre className="whitespace-pre-wrap p-4 bg-gray-100 rounded">
+            {architecturalDescription}
+          </pre>
+        </TabsContent>
+        <TabsContent value="code">
+          <pre className="whitespace-pre-wrap p-4 bg-gray-100 rounded">
+            {diagramCode}
+          </pre>
+        </TabsContent>
+      </Tabs>
+
+      {/* Edit Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Edit Diagram Code</DialogTitle>
+          </DialogHeader>
+          <Textarea
+            value={editedCode}
+            onChange={(e) => setEditedCode(e.target.value)}
+            rows={20}
+            className="mt-4"
+          />
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={handleGenerateDiagram}
+              disabled={isGenerating}
+            >
+              {isGenerating ? "Generating..." : "Generate Diagram"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }

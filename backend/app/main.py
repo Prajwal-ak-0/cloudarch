@@ -25,6 +25,7 @@ app.add_middleware(
 
 # Mount the 'code_exe' directory to serve static files
 app.mount("/images", StaticFiles(directory="code_exe"), name="images")
+app.mount("/updated_images", StaticFiles(directory="updated_code_files"), name="updated_images")
 
 app.include_router(diagram.router, prefix="/api/v1/diagrams", tags=["Diagrams"])
 app.include_router(test.router, prefix="/api/v1/test", tags=["Test"])

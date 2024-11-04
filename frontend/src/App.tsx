@@ -11,16 +11,16 @@ import { CloudProviderSelect } from "./components/cloud-provider-select";
 import { ProjectDescription } from "./components/project-description";
 import { TextDisplay } from "./components/text-display";
 import { DiagramDisplay } from "./components/diagram-display";
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 export default function App() {
   const [cloudProvider, setCloudProvider] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [generatedDiagrams, setGeneratedDiagrams] = useState<string[]>([]);
   const [architecturalDescription, setArchitecturalDescription] =
-    useState<string>("");
-  const [diagramCode, setDiagramCode] = useState<string>("");
+    useState("");
+  const [diagramCode, setDiagramCode] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -107,7 +107,6 @@ export default function App() {
   return (
     <div className="flex min-h-screen w-screen ">
       <div className="flex-1 flex flex-col bg-white dark:bg-gray-800">
-
         <main
           className={cn(
             "flex-1 p-4 transition-all duration-300",
@@ -132,7 +131,7 @@ export default function App() {
                       <CloudProviderSelect onValueChange={setCloudProvider} />
                     )}
                     {currentStep === 1 && (
-                        <div className="space-y-6">
+                      <div className="space-y-6">
                         <Label htmlFor="project-description">
                           Project Description
                         </Label>
@@ -140,10 +139,12 @@ export default function App() {
                           id="project-description"
                           placeholder="Describe your project architecture here..."
                           value={projectDescription}
-                          onChange={(e) => setProjectDescription(e.target.value)}
+                          onChange={(e) =>
+                            setProjectDescription(e.target.value)
+                          }
                           className="h-32 md:h-40"
                         />
-                        </div>
+                      </div>
                     )}
                     {currentStep === 2 && (
                       <Alert variant="default">
@@ -238,6 +239,9 @@ export default function App() {
                 <TextDisplay
                   architecturalDescription={architecturalDescription}
                   diagramCode={diagramCode}
+                  setGeneratedDiagrams={setGeneratedDiagrams}
+                  setDiagramCode={setDiagramCode} // Pass the setter function
+                  setArchitecturalDescription={setArchitecturalDescription}
                 />
               </div>
             </>
