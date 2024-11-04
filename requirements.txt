@@ -7,3 +7,7 @@ PyYAML
 autogen-agentchat
 autogen
 python-multipart
+flaml[automl]
+aiofiles
+jinja2
+starlette

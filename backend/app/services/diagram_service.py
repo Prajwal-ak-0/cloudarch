@@ -31,8 +31,8 @@ class DiagramService:
 
     @staticmethod
     def execute_code_and_get_images(diagram_code: str) -> list:
-        # Create 'code_exe' directory if it doesn't exist
-        execution_dir = os.path.join(os.getcwd(), 'code_exe')
+        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
+        execution_dir = os.path.join(BASE_DIR, 'code_exe')
         os.makedirs(execution_dir, exist_ok=True)
 
         unique_id = uuid.uuid4().hex
@@ -72,8 +72,8 @@ class DiagramService:
     
     @staticmethod
     def execute_updated_code_and_get_images(diagram_code: str) -> list:
-        # Create 'updated_code_files' directory if it doesn't exist
-        execution_dir = os.path.join(os.getcwd(), 'updated_code_files')
+        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
+        execution_dir = os.path.join(BASE_DIR, 'updated_code_files')
         os.makedirs(execution_dir, exist_ok=True)
 
         unique_id = uuid.uuid4().hex
