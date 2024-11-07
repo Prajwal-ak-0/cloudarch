@@ -11,9 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+import * as pdfjsLib from "pdfjs-dist";
 
-// Set the workerSrc property
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
 interface FormComponentProps {
@@ -125,7 +124,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       <Button
         type="submit"
         disabled={
-          !cloudProvider || (!projectDescription && !pdfContent) || (pdfFile && !pdfContent)
+          !cloudProvider || (!projectDescription && !pdfContent) || Boolean(pdfFile && !pdfContent)
         }
       >
         Generate Diagram
