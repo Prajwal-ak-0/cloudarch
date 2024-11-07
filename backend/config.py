@@ -1,5 +1,3 @@
-# config.py
-
 from dotenv import load_dotenv
 import os
 
@@ -171,93 +169,8 @@ Your task is to analyze the provided Project Description and generate **three di
 <project_description> {project_description} </project_descriptio**n>
 """
 
-# llm2 = """
-# You are an {cloud_provider} Cloud Architecture expert specializing in analyzing project requirements and creating detailed architectural diagrams using Mingrammer's Diagrams library(https://diagrams.mingrammer.com/docs/getting-started/examples). You have deep knowledge of {cloud_provider} services, their interactions, and best practices for cloud architecture design.
-
-# TASK DESCRIPTION:
-# ----------------
-# Your task is to analyze the provided Project Description and generate Mingrammer Diagrams code that accurately represents the architecture. 
-
-# INPUTS:
-# -------
-# 1. Icon List:
-#     - JSON object containing service categories and their corresponding valid icon names
-#     - Each category maps to an array of icon names
-#     - Choose the most relevant icon from each category
-
-# 2. Project Description:
-#     - Detailed description of project's architecture and components
-
-# PROCESSING STEPS:
-# ----------------
-# 1. Analyze Project Description:
-#     - Read and comprehend project description fully
-#     - Identify key requirements, objectives, components
-#     - Note specific constraints and preferences
-
-# 2. Service Icon Selection:
-#     - Select relevant icons from Icon List by category
-#     - Ensure icons match their service categories
-#     - Do not use unlisted icons names
-
-# 3. Compose Architectural Description:
-#     - Provide clear, concise architecture description
-#     - Focus on component functionality and roles
-#     - Document data flows and interactions
-#     - Identify component clusters/groups
-
-# 4. Map {cloud_provider} Service Categories:
-#     - Match components to {cloud_provider} categories
-#     - Select only relevant categories for architecture
-
-# 5. Design Layout:
-#     - Ensure clean and well-structured diagram layout
-#     - Avoid cluttered or messy connections
-#     - Use appropriate spacing between components
-#     - Group related services logically
-#     - Maintain clear directional flow
-#     - Follow {cloud_provider} Well-Architected Framework principles
-
-# OUTPUT REQUIREMENTS:
-# ------------------
-# - Plain Code Mingrammer Diagrams Python code, Nothing else(Markdown Format In Code Cell).
-# - Use only provided Icon List icons
-# - Follow <SERVICE_NAME>(<PURPOSE in single word>) naming
-# - Exclude assumptions/extra information
-# - Create visually clean and well-organized diagrams
-# - Nothing other than the Mingrammer Diagrams code should be generated
-
-# CONSTRAINTS:
-# -----------
-# - Include only justified components
-# - Ensure complete component connectivity
-# - Follow {cloud_provider} Well-Architected Framework
-# - Output Mingrammer Diagrams code only
-# - Maintain accuracy and relevance
-# - Avoid visual clutter and complexity
-
-# <IMPORTANT>
-# 1. Imporing Mingrammer Diagrams Icons : 
-# ```from diagrams.{cloud_provider}.<category> import <IconName>```
-# 2. Make Sure No Typo in Icon Names or import statements. Use the exact icon names from the list.
-# </IMPORTANT>
-
-# INPUT VALID ICONS:
-# -----------------
-# <icon_list> {icon_list} </icon_list>
-
-# PROJECT DESCRIPTION:
-# ------------------
-# <project_description> {project_description} </project_description>
-# """
-
 project_description = """
-    Project Overview
-
     DocuExtract is a document processing platform that automatically extracts key fields, like start_date, sow_value, and po_no, from contract documents. Users upload contracts through a frontend built with Next.js and TailwindCSS, which sends the document to a backend API developed in Python with FastAPI. The backend chunks the document, generates embeddings using a Hugging Face model, and stores these embeddings in Milvus, an open-source vector database. The system then retrieves relevant chunks based on specific fields and extracts values using a reranker model, returning the results in a CSV format.
-
-    Current Technology Stack
-
     Currently, the backend is hosted on Render while the frontend deployed on Vercel. The backend uses FastAPI for API services, Milvus for vector storage, and models from Hugging Face for document embedding and reranking. This setup allows efficient retrieval and extraction of information, making it a scalable and responsive solution for automating data extraction from complex contract documents.
 """
 

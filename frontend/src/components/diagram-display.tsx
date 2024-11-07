@@ -1,8 +1,9 @@
+// frontend/src/components/diagram-display.tsx
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {  Maximize2, Minimize2 } from "lucide-react";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { Loader2 } from "lucide-react";
 
 interface DiagramDisplayProps {
@@ -96,11 +97,13 @@ export function DiagramDisplay({ diagrams, isLoading }: DiagramDisplayProps) {
         </CardHeader>
         <CardContent>
           <div className="relative">
-            <img
-              src={diagrams[currentIndex]}
-              alt={`Generated Diagram ${currentIndex + 1}`}
-              className="w-full h-auto rounded-lg"
-            />
+            <div className="minimized-container">
+              <img
+                src={diagrams[currentIndex]}
+                alt={`Generated Diagram ${currentIndex + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
             <Button
               onClick={prevImage}
               className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 text-white"
@@ -120,29 +123,18 @@ export function DiagramDisplay({ diagrams, isLoading }: DiagramDisplayProps) {
               <Maximize2 className="h-4 w-4" />
             </Button>
           </div>
-          {diagrams.length > 1 && (
-            <div className="flex justify-center mt-2 space-x-2">
-              {diagrams.map((_, index) => (
-                <span
-                  key={index}
-                  className={`h-2 w-2 rounded-full ${
-                    index === currentIndex ? "bg-blue-500" : "bg-gray-300"
-                  }`}
-                ></span>
-              ))}
-            </div>
-          )}
         </CardContent>
       </Card>
-
       {isMaximized && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="relative w-full h-full flex items-center justify-center">
-            <img
-              src={diagrams[fullscreenIndex]}
-              alt={`Fullscreen Diagram ${fullscreenIndex + 1}`}
-              className="max-w-full max-h-full rounded-lg"
-            />
+            <div className="maximized-container">
+              <img
+                src={diagrams[fullscreenIndex]}
+                alt={`Fullscreen Diagram ${fullscreenIndex + 1}`}
+                className="max-w-full max-height-full object-contain"
+              />
+            </div>
             <Button
               onClick={handleMinimize}
               className="absolute top-4 right-4 bg-gray-700 bg-opacity-50 text-white"

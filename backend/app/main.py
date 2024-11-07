@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.v1.endpoints import diagram, test
+from backend.app.api.v1.enpoints import diagram, test
 
 import os
 import time
